@@ -1,0 +1,5 @@
+# Instalation Tutorial:
+https://bitbucket.org/icl/papi/wiki/Downloading-and-Installing-PAPI
+
+# Commmand line
+gcc simple.c -I/home/mayk/papi/src/install/include -L/home/mayk/papi/src/install/lib /home/mayk/papi/src/install/lib/libpapi.a -o simple -lpapi
