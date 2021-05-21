@@ -90,10 +90,65 @@ void papito_start()
   int codeEvents[papiEvents.size()];
   for (int i = 0; i < papiEvents.size(); i++)
   {
-    if (papiEvents[i] == "PAPI_TOT_CYC") codeEvents[i] = PAPI_TOT_CYC;
-    else if (papiEvents[i] == "PAPI_TOT_INS") codeEvents[i] = PAPI_TOT_INS;
+    if (papiEvents[i] == "PAPI_L1_DCM") codeEvents[i] = PAPI_L1_DCM;
     else if (papiEvents[i] == "PAPI_L1_ICM") codeEvents[i] = PAPI_L1_ICM;
-    else if (papiEvents[i] == "PAPI_L1_DCM") codeEvents[i] = PAPI_L1_DCM;
+    else if (papiEvents[i] == "PAPI_L2_DCM") codeEvents[i] = PAPI_L2_DCM;
+    else if (papiEvents[i] == "PAPI_L2_ICM") codeEvents[i] = PAPI_L2_ICM;
+    else if (papiEvents[i] == "PAPI_L1_TCM") codeEvents[i] = PAPI_L1_TCM;
+    else if (papiEvents[i] == "PAPI_L2_TCM") codeEvents[i] = PAPI_L2_TCM;
+    else if (papiEvents[i] == "PAPI_L3_TCM") codeEvents[i] = PAPI_L3_TCM;
+    else if (papiEvents[i] == "PAPI_CA_SNP") codeEvents[i] = PAPI_CA_SNP;
+    else if (papiEvents[i] == "PAPI_CA_SHR") codeEvents[i] = PAPI_CA_SHR;
+    else if (papiEvents[i] == "PAPI_CA_CLN") codeEvents[i] = PAPI_CA_CLN;
+    else if (papiEvents[i] == "PAPI_CA_ITV") codeEvents[i] = PAPI_CA_ITV;
+    else if (papiEvents[i] == "PAPI_L3_LDM") codeEvents[i] = PAPI_L3_LDM;
+    else if (papiEvents[i] == "PAPI_TLB_DM") codeEvents[i] = PAPI_TLB_DM;
+    else if (papiEvents[i] == "PAPI_TLB_IM") codeEvents[i] = PAPI_TLB_IM;
+    else if (papiEvents[i] == "PAPI_L1_LDM") codeEvents[i] = PAPI_L1_LDM;
+    else if (papiEvents[i] == "PAPI_L1_STM") codeEvents[i] = PAPI_L1_STM;
+    else if (papiEvents[i] == "PAPI_L2_LDM") codeEvents[i] = PAPI_L2_LDM;
+    else if (papiEvents[i] == "PAPI_L2_STM") codeEvents[i] = PAPI_L2_STM;
+    else if (papiEvents[i] == "PAPI_PRF_DM") codeEvents[i] = PAPI_PRF_DM;
+    else if (papiEvents[i] == "PAPI_MEM_WCY") codeEvents[i] = PAPI_MEM_WCY;
+    else if (papiEvents[i] == "PAPI_STL_ICY") codeEvents[i] = PAPI_STL_ICY;
+    else if (papiEvents[i] == "PAPI_FUL_ICY") codeEvents[i] = PAPI_FUL_ICY;
+    else if (papiEvents[i] == "PAPI_STL_CCY") codeEvents[i] = PAPI_STL_CCY;
+    else if (papiEvents[i] == "PAPI_FUL_CCY") codeEvents[i] = PAPI_FUL_CCY;
+    else if (papiEvents[i] == "PAPI_BR_UCN") codeEvents[i] = PAPI_BR_UCN;
+    else if (papiEvents[i] == "PAPI_BR_CN") codeEvents[i] = PAPI_BR_CN;
+    else if (papiEvents[i] == "PAPI_BR_TKN") codeEvents[i] = PAPI_BR_TKN;
+    else if (papiEvents[i] == "PAPI_BR_NTK") codeEvents[i] = PAPI_BR_NTK;
+    else if (papiEvents[i] == "PAPI_BR_MSP") codeEvents[i] = PAPI_BR_MSP;
+    else if (papiEvents[i] == "PAPI_BR_PRC") codeEvents[i] = PAPI_BR_PRC;
+    else if (papiEvents[i] == "PAPI_TOT_INS") codeEvents[i] = PAPI_TOT_INS;
+    else if (papiEvents[i] == "PAPI_LD_INS") codeEvents[i] = PAPI_LD_INS;
+    else if (papiEvents[i] == "PAPI_SR_INS") codeEvents[i] = PAPI_SR_INS;
+    else if (papiEvents[i] == "PAPI_BR_INS") codeEvents[i] = PAPI_BR_INS;
+    else if (papiEvents[i] == "PAPI_RES_STL") codeEvents[i] = PAPI_RES_STL;
+    else if (papiEvents[i] == "PAPI_TOT_CYC") codeEvents[i] = PAPI_TOT_CYC;
+    else if (papiEvents[i] == "PAPI_LST_INS") codeEvents[i] = PAPI_LST_INS;
+    else if (papiEvents[i] == "PAPI_L2_DCA") codeEvents[i] = PAPI_L2_DCA;
+    else if (papiEvents[i] == "PAPI_L3_DCA") codeEvents[i] = PAPI_L3_DCA;
+    else if (papiEvents[i] == "PAPI_L2_DCR") codeEvents[i] = PAPI_L2_DCR;
+    else if (papiEvents[i] == "PAPI_L3_DCR") codeEvents[i] = PAPI_L3_DCR;
+    else if (papiEvents[i] == "PAPI_L2_DCW") codeEvents[i] = PAPI_L2_DCW;
+    else if (papiEvents[i] == "PAPI_L3_DCW") codeEvents[i] = PAPI_L3_DCW;
+    else if (papiEvents[i] == "PAPI_L2_ICH") codeEvents[i] = PAPI_L2_ICH;
+    else if (papiEvents[i] == "PAPI_L2_ICA") codeEvents[i] = PAPI_L2_ICA;
+    else if (papiEvents[i] == "PAPI_L3_ICA") codeEvents[i] = PAPI_L3_ICA;
+    else if (papiEvents[i] == "PAPI_L2_ICR") codeEvents[i] = PAPI_L2_ICR;
+    else if (papiEvents[i] == "PAPI_L3_ICR") codeEvents[i] = PAPI_L3_ICR;
+    else if (papiEvents[i] == "PAPI_L2_TCA") codeEvents[i] = PAPI_L2_TCA;
+    else if (papiEvents[i] == "PAPI_L3_TCA") codeEvents[i] = PAPI_L3_TCA;
+    else if (papiEvents[i] == "PAPI_L2_TCR") codeEvents[i] = PAPI_L2_TCR;
+    else if (papiEvents[i] == "PAPI_L3_TCR") codeEvents[i] = PAPI_L3_TCR;
+    else if (papiEvents[i] == "PAPI_L2_TCW") codeEvents[i] = PAPI_L2_TCW;
+    else if (papiEvents[i] == "PAPI_L3_TCW") codeEvents[i] = PAPI_L3_TCW;
+    else if (papiEvents[i] == "PAPI_SP_OPS") codeEvents[i] = PAPI_SP_OPS;
+    else if (papiEvents[i] == "PAPI_DP_OPS") codeEvents[i] = PAPI_DP_OPS;
+    else if (papiEvents[i] == "PAPI_VEC_SP") codeEvents[i] = PAPI_VEC_SP;
+    else if (papiEvents[i] == "PAPI_VEC_DP") codeEvents[i] = PAPI_VEC_DP;
+    else if (papiEvents[i] == "PAPI_REF_CYC") codeEvents[i] = PAPI_REF_CYC;
   }
 
 	#pragma omp parallel
@@ -116,11 +171,10 @@ void papito_end()
 	int t;
 	int max = omp_get_max_threads(); // pega o valor definido na variavel ambiente OMP_NUM_THREADS
 	long_long values[max][papiEvents.size()]; // Cada thread registra seu contadores aqui.
+  long_long total[papiEvents.size()];
 
-  long_long total_INST     = 0;
-	long_long total_L1_dados = 0;
-  long_long total_L1_instr = 0;
-	long_long total_cycles   = 0;
+  for (int i = 0; i < papiEvents.size(); i++)
+    total[i] = 0;
 
 	// Parar a contagem dos eventos
 	#pragma omp parallel
@@ -140,17 +194,19 @@ void papito_end()
 	// Totalizando os eventos
 	for(t = 0; t < max; t++)
 	{
-		total_INST     += values[t][INDEX_INST]; // usar index do evento no eventSet.
-		total_L1_instr += values[t][INDEX_L1I];
-		total_L1_dados += values[t][INDEX_L1D];
-    total_cycles   += values[t][INDEX_CYCLE];
-
-    printf("%d\t",t);
-    printf("%lld\t",  values[t][INDEX_INST]);
-    printf("%lld\t",  values[t][INDEX_L1I]);
-    printf("%lld\t",  values[t][INDEX_L1D]);
-    printf("%lld\n", values[t][INDEX_CYCLE]);
+    cout << t << "\t";
+    for (int i = 0; i < papiEvents.size(); i++)
+    {
+      total[i] += values[t][i];
+      cout << values[t][i] << "\t";
+    }
+    cout << endl;
 	}
 
-    printf("Total:\t%lld\t%lld\t%lld\t%lld\n", total_INST, total_L1_instr, total_L1_dados, total_cycles);
+  cout << "Total:\t";
+  for (int i = 0; i < papiEvents.size(); i++)
+    cout << total[i] << "\t";
+
+    cout << endl << endl;
+
 }
