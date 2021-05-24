@@ -7,7 +7,7 @@
 #include <omp.h>
 
 // Internal functions
-void input()
+void input();
 void handle_error (int retval);
 
 // User functions

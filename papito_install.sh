@@ -3,9 +3,6 @@
 #Obs: Run the following command to make this script executable
 #     chmod +x papito_install.sh
 
-echo ">>>>>>> Getting the path to the current directory"
-MY_PATH=$(pwd)
-
 cd ..
 
 echo ">>>>>>> Cloning PAPI repository"
@@ -28,7 +25,31 @@ echo ">>>>>>> Going to PAPIto directory"
 cd ../../../PAPIto
 
 echo ">>>>>>> Compiling example code"
-gcc simple_array_sum.c papito.c -I$PWD/../papi/install/include -L$PWD/../papi/install/lib $PWD/../papi/install/lib/libpapi.a -o simple_array_sum -fopenmp -lpapi
+g++ simple_array_sum.cpp papito.cpp -I$PWD/../papi/install/include -L$PWD/../papi/install/lib $PWD/../papi/install/lib/libpapi.a -o simple_array_sum -fopenmp -lpapi
 
 echo ">>>>>>> Running example code"
 ./simple_array_sum
+
+cd ..
+
+echo ">>>>>>> Cloning PAPI repository"
+git clone https://github.com/sbeamer/gapbs.git
+
+echo ">>>>>>> Copying the modified files"
+cp PAPIto/GAPBS/*.cpp gapbs/src
+cp PAPIto/GAPBS/*.h gapbs/src
+cp PAPIto/GAPBS/*.in gapbs/src
+cp PAPIto/GAPBS/Makefile gapbs/
+
+cd gapbs/src
+
+echo ">>>>>>> In Makefile inserting the correct path to counters.in"
+sed -i "s+counters.in+$PWD/counters.in+g" papito.cpp
+
+cd ..
+
+echo ">>>>>>> Compilling"
+make
+
+echo ">>>>>>> Running PageRank Algorithm"
+./pr -f test/graphs/4.el -n1
