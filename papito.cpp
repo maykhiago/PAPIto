@@ -1,8 +1,3 @@
-/*
-	para compilar é preciso algo parecido com isso:
-	gcc -I/usr/local/include -O3 energy_arm_so_mede.c /usr/local/lib/libpapi.a -fopenmp -a /usr/local/lib/energy_arm
-	gcc simple.c -I/home/mayk/papi/src/install/include -L/home/mayk/papi/src/install/lib /home/mayk/papi/src/install/lib/libpapi.a -o simple -lpapi
-*/
 
 #include "papito.h"
 #include <fstream>
@@ -15,11 +10,10 @@ using namespace std;
 
 #define NUM_CORES 8
 
-//int codeEvents[NUM_EVENTS] = {PAPI_TOT_CYC, PAPI_TOT_INS, PAPI_L1_ICM, PAPI_L1_DCM}; // é carregado com os codigos dos eventos.
 int num_event_set[NUM_CORES]; // Cada thread registra o seu ID do EventSet, para sempre usar o mesmo
 vector<string> papiEvents;
 
-void papito_input()
+void input()
 {
   ifstream infile("counters.in");
   string line;
@@ -28,17 +22,13 @@ void papito_input()
       istringstream iss(line);
       string a;
       if (!(iss >> a)) { break; } // error
-      //cout << a << endl;
       papiEvents.push_back(a);
   }
 }
 
 void papito_init()
 {
-	papito_input();
-
-  //for (int i = 0; i < omp_get_num_threads(); i++)
-  //  num_event_set.push_back(0);
+	input();
 
 	int retval;
 
@@ -59,11 +49,9 @@ void papito_init()
 		printf("PAPI threads init error!\n");
         exit(1);
 	}
-
-	//printf("-->> %d ->", omp_get_thread_num());
 }
 
-void papito_handle_error (int retval)
+void handle_error (int retval)
 {
 	if(retval == 1) printf("Erro ao criar eventSet ");
 	if(retval == 2) printf("Erro ao add events ao eventSet ");
@@ -154,15 +142,12 @@ void papito_start()
 	#pragma omp parallel
 	{
 		int num_thread = omp_get_thread_num();
-    //cout << num_thread << endl;
-		//printf("-->> %d ->", omp_get_thread_num());
-
 		// Create the Event Set
-		if (PAPI_create_eventset(&num_event_set[num_thread]) != PAPI_OK) papito_handle_error(1);
+		if (PAPI_create_eventset(&num_event_set[num_thread]) != PAPI_OK) handle_error(1);
 		// Add Total Instructions Executed to our EventSet
-		if (PAPI_add_events(num_event_set[num_thread], codeEvents, papiEvents.size()) != PAPI_OK) papito_handle_error(2);
+		if (PAPI_add_events(num_event_set[num_thread], codeEvents, papiEvents.size()) != PAPI_OK) handle_error(2);
 		// Start counting events in the Event Set
-		if (PAPI_start(num_event_set[num_thread]) != PAPI_OK) papito_handle_error(3);
+		if (PAPI_start(num_event_set[num_thread]) != PAPI_OK) handle_error(3);
 	}
 }
 
@@ -180,9 +165,9 @@ void papito_end()
 	#pragma omp parallel
 	{
 		int num_thread = omp_get_thread_num();
-		if (PAPI_stop(num_event_set[num_thread], values[num_thread]) != PAPI_OK) papito_handle_error(4);
-		if (PAPI_cleanup_eventset(num_event_set[num_thread]) != PAPI_OK) papito_handle_error(20);
-		if (PAPI_destroy_eventset(&num_event_set[num_thread]) != PAPI_OK) papito_handle_error(21);
+		if (PAPI_stop(num_event_set[num_thread], values[num_thread]) != PAPI_OK) handle_error(4);
+		if (PAPI_cleanup_eventset(num_event_set[num_thread]) != PAPI_OK) handle_error(20);
+		if (PAPI_destroy_eventset(&num_event_set[num_thread]) != PAPI_OK) handle_error(21);
 		PAPI_unregister_thread();
 	}
 
