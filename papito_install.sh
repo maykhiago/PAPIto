@@ -53,3 +53,5 @@ make
 
 echo ">>>>>>> Running PageRank Algorithm"
 ./pr -f test/graphs/4.el -n1
+
+cd ../PAPIto
