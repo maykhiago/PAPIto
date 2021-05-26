@@ -24,13 +24,17 @@ cd ctests
 echo ">>>>>>> Going to PAPIto directory"
 cd ../../../PAPIto
 
+sed -i "s+#define NUM_CORES 8+#define NUM_CORES $(grep -c ^processor /proc/cpuinfo)+g" papito.cpp
+
 echo ">>>>>>> Compiling example code"
 g++ simple_array_sum.cpp papito.cpp -I$PWD/../papi/install/include -L$PWD/../papi/install/lib $PWD/../papi/install/lib/libpapi.a -o simple_array_sum -fopenmp -lpapi
 
 echo ">>>>>>> Running example code"
 ./simple_array_sum
 
-cd ..
+cd GAPBS
+sed -i "s+#define NUM_CORES 8+#define NUM_CORES $(grep -c ^processor /proc/cpuinfo)+g" papito.cpp
+cd ../..
 
 echo ">>>>>>> Cloning PAPI repository"
 git clone https://github.com/sbeamer/gapbs.git
