@@ -133,11 +133,17 @@ void papito_start()
     else if (papiEvents[i] == "PAPI_L3_TCR") codeEvents[i] = PAPI_L3_TCR;
     else if (papiEvents[i] == "PAPI_L2_TCW") codeEvents[i] = PAPI_L2_TCW;
     else if (papiEvents[i] == "PAPI_L3_TCW") codeEvents[i] = PAPI_L3_TCW;
+    else if (papiEvents[i] == "PAPI_FDV_INS") codeEvents[i] = PAPI_FDV_INS;
     else if (papiEvents[i] == "PAPI_SP_OPS") codeEvents[i] = PAPI_SP_OPS;
     else if (papiEvents[i] == "PAPI_DP_OPS") codeEvents[i] = PAPI_DP_OPS;
     else if (papiEvents[i] == "PAPI_VEC_SP") codeEvents[i] = PAPI_VEC_SP;
     else if (papiEvents[i] == "PAPI_VEC_DP") codeEvents[i] = PAPI_VEC_DP;
     else if (papiEvents[i] == "PAPI_REF_CYC") codeEvents[i] = PAPI_REF_CYC;
+    else
+    {
+      cout << "Counter " + papiEvents[i] + " doesn't exists!" << endl;
+      exit(1);
+    }
   }
 
 	#pragma omp parallel
