@@ -41,6 +41,7 @@ git clone https://github.com/sbeamer/gapbs.git
 
 echo ">>>>>>> Copying the modified files"
 cp PAPIto/GAPBS/*.cpp gapbs/src
+cp PAPIto/GAPBS/*.cc gapbs/src
 cp PAPIto/GAPBS/*.h gapbs/src
 cp PAPIto/GAPBS/*.in gapbs/src
 cp PAPIto/GAPBS/Makefile gapbs/
