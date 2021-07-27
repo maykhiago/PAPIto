@@ -129,7 +129,7 @@ pvector<WeightT> DeltaStep(const WGraph &g, NodeID source, WeightT delta) {
       {
         t.Stop();
         //(Hiago Mayk) 06/07/2021
-        //(curr_bin_index, t.Millisecs(), curr_frontier_tail);
+        //PrintStep(curr_bin_index, t.Millisecs(), curr_frontier_tail);
         t.Start();
         curr_bin_index = kMaxBin;
         curr_frontier_tail = 0;
