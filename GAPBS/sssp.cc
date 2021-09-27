@@ -145,7 +145,7 @@ pvector<WeightT> DeltaStep(const WGraph &g, NodeID source, WeightT delta) {
       #pragma omp barrier
     }
     #pragma omp single
-    cout << "took " << iter << " iterations" << endl;
+    //cout << "took " << iter << " iterations" << endl;
   }
   return dist;
 }
