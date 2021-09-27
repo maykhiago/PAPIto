@@ -84,7 +84,8 @@ void RelaxEdges(const WGraph &g, NodeID u, WeightT delta,
   }
 }
 
-pvector<WeightT> DeltaStep(const WGraph &g, NodeID source, WeightT delta) {
+pvector<WeightT> DeltaStep(const WGraph &g, NodeID source, WeightT delta) 
+{
   Timer t;
   pvector<WeightT> dist(g.num_nodes(), kDistInf);
   dist[source] = 0;
@@ -94,58 +95,72 @@ pvector<WeightT> DeltaStep(const WGraph &g, NodeID source, WeightT delta) {
   size_t frontier_tails[2] = {1, 0};
   frontier[0] = source;
   t.Start();
+
   #pragma omp parallel
   {
-    vector<vector<NodeID> > local_bins(0);
-    size_t iter = 0;
-    while (shared_indexes[iter&1] != kMaxBin) {
-      size_t &curr_bin_index = shared_indexes[iter&1];
-      size_t &next_bin_index = shared_indexes[(iter+1)&1];
-      size_t &curr_frontier_tail = frontier_tails[iter&1];
-      size_t &next_frontier_tail = frontier_tails[(iter+1)&1];
-      #pragma omp for nowait schedule(dynamic, 64)
-      for (size_t i=0; i < curr_frontier_tail; i++) {
-        NodeID u = frontier[i];
-        if (dist[u] >= delta * static_cast<WeightT>(curr_bin_index))
-          RelaxEdges(g, u, delta, dist, local_bins);
-      }
-      while (curr_bin_index < local_bins.size() &&
-             !local_bins[curr_bin_index].empty() &&
-             local_bins[curr_bin_index].size() < kBinSizeThreshold) {
-        vector<NodeID> curr_bin_copy = local_bins[curr_bin_index];
-        local_bins[curr_bin_index].resize(0);
-        for (NodeID u : curr_bin_copy)
-          RelaxEdges(g, u, delta, dist, local_bins);
-      }
-      for (size_t i=curr_bin_index; i < local_bins.size(); i++) {
-        if (!local_bins[i].empty()) {
-          #pragma omp critical
-          next_bin_index = min(next_bin_index, i);
-          break;
-        }
-      }
-      #pragma omp barrier
-      #pragma omp single nowait
+      vector<vector<NodeID> > local_bins(0);
+      size_t iter = 0;
+
+      while (shared_indexes[iter&1] != kMaxBin) 
       {
-        t.Stop();
-        //(Hiago Mayk) 06/07/2021
-        //PrintStep(curr_bin_index, t.Millisecs(), curr_frontier_tail);
-        t.Start();
-        curr_bin_index = kMaxBin;
-        curr_frontier_tail = 0;
+          size_t &curr_bin_index = shared_indexes[iter&1];
+          size_t &next_bin_index = shared_indexes[(iter+1)&1];
+          size_t &curr_frontier_tail = frontier_tails[iter&1];
+          size_t &next_frontier_tail = frontier_tails[(iter+1)&1];
+
+          #pragma omp for nowait schedule(dynamic, 64)
+
+          for (size_t i=0; i < curr_frontier_tail; i++) 
+          {
+              NodeID u = frontier[i];
+              if (dist[u] >= delta * static_cast<WeightT>(curr_bin_index))
+                RelaxEdges(g, u, delta, dist, local_bins);
+          }
+
+          while (curr_bin_index < local_bins.size() &&
+                 !local_bins[curr_bin_index].empty() &&
+                 local_bins[curr_bin_index].size() < kBinSizeThreshold) 
+          {
+              vector<NodeID> curr_bin_copy = local_bins[curr_bin_index];
+              local_bins[curr_bin_index].resize(0);
+              for (NodeID u : curr_bin_copy)
+                RelaxEdges(g, u, delta, dist, local_bins);
+          }
+
+          for (size_t i=curr_bin_index; i < local_bins.size(); i++) 
+          {
+              if (!local_bins[i].empty()) 
+              {
+                  #pragma omp critical
+                  next_bin_index = min(next_bin_index, i);
+                  break;
+              }
+          }
+
+          #pragma omp barrier
+          #pragma omp single nowait
+          {
+              t.Stop();
+              //(Hiago Mayk) 06/07/2021
+              //PrintStep(curr_bin_index, t.Millisecs(), curr_frontier_tail);
+              t.Start();
+              curr_bin_index = kMaxBin;
+              curr_frontier_tail = 0;
+          }
+
+          if (next_bin_index < local_bins.size()) 
+          {
+              size_t copy_start = fetch_and_add(next_frontier_tail,
+                                                local_bins[next_bin_index].size());
+              copy(local_bins[next_bin_index].begin(),
+                   local_bins[next_bin_index].end(), frontier.data() + copy_start);
+              local_bins[next_bin_index].resize(0);
+          }
+          iter++;
+          #pragma omp barrier
       }
-      if (next_bin_index < local_bins.size()) {
-        size_t copy_start = fetch_and_add(next_frontier_tail,
-                                          local_bins[next_bin_index].size());
-        copy(local_bins[next_bin_index].begin(),
-             local_bins[next_bin_index].end(), frontier.data() + copy_start);
-        local_bins[next_bin_index].resize(0);
-      }
-      iter++;
-      #pragma omp barrier
-    }
-    #pragma omp single
-    //cout << "took " << iter << " iterations" << endl;
+      #pragma omp single
+      //cout << "took " << iter << " iterations" << endl;
   }
   return dist;
 }
@@ -154,7 +169,7 @@ pvector<WeightT> DeltaStep(const WGraph &g, NodeID source, WeightT delta) {
 void PrintSSSPStats(const WGraph &g, const pvector<WeightT> &dist) {
   auto NotInf = [](WeightT d) { return d != kDistInf; };
   int64_t num_reached = count_if(dist.begin(), dist.end(), NotInf);
-  cout << "SSSP Tree reaches " << num_reached << " nodes" << endl;
+  label_to_source << "SSSP Tree reaches " << num_reached << " nodes" << endl;
 }
 
 

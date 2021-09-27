@@ -107,7 +107,7 @@ pvector<ScoreT> Brandes(const Graph &g, SourcePicker<Graph> &sp,
   const NodeID* g_out_start = g.out_neigh(0).begin();
   for (NodeID iter=0; iter < num_iters; iter++) {
     NodeID source = sp.PickNext();
-    cout << "source: " << source << endl;
+    //cout << "source: " << source << endl;
     t.Start();
     path_counts.fill(0);
     depth_index.resize(0);
