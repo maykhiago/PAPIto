@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define NUM_CORES 8
+#define NUM_CORES 4
 
 int num_event_set[NUM_CORES]; // Cada thread registra o seu ID do EventSet, para sempre usar o mesmo
 vector<string> papiEvents;
