@@ -39,7 +39,7 @@ cd ..
 cd NPB-OMP/common
 sed -i "s+#define NUM_CORES 4+#define NUM_CORES $(grep -c ^processor /proc/cpuinfo)+g" papito.cpp
 
-cd ..
+cd ../../..
 
 echo ">>>>>>> Cloning GAPBS repository"
 git clone https://github.com/sbeamer/gapbs.git
