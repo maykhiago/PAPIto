@@ -53,7 +53,7 @@ cp PAPIto/GAPBS/Makefile gapbs/
 
 cd gapbs/src
 
-echo ">>>>>>> In Makefile inserting the correct path to counters.in"
+echo ">>>>>>> Inserting the correct path to counters.in"
 sed -i "s+counters.in+$PWD/counters.in+g" papito.cpp
 
 cd ..
@@ -69,8 +69,12 @@ cd ..
 echo ">>>>>>> Copying NAS repository"
 cp -r PAPIto/NPB-OMP .
 
+cd NPB-OMP/common
+echo ">>>>>>> Inserting the correct path to counters.in"
+sed -i "s+counters.in+$PWD/counters.in+g" papito.cpp
+
 echo ">>>>>>> Compilling"
-cd NPB-OMP
+cd ..
 ./compile_all.sh
 
 echo ">>>>>>> Running bt.A"
