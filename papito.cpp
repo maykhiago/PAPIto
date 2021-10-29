@@ -111,7 +111,7 @@ void papito_start()
     else if (papiEvents[i] == "PAPI_TOT_INS") codeEvents[i] = PAPI_TOT_INS;
     else if (papiEvents[i] == "PAPI_LD_INS") codeEvents[i] = PAPI_LD_INS;
     else if (papiEvents[i] == "PAPI_SR_INS") codeEvents[i] = PAPI_SR_INS;
-    else if (papiEvents[i] == "PAPI_FP_INS") codeEvents[i] = PAPI_FP_INS 
+    else if (papiEvents[i] == "PAPI_FP_INS") codeEvents[i] = PAPI_FP_INS
     else if (papiEvents[i] == "PAPI_BR_INS") codeEvents[i] = PAPI_BR_INS;
     else if (papiEvents[i] == "PAPI_RES_STL") codeEvents[i] = PAPI_RES_STL;
     else if (papiEvents[i] == "PAPI_TOT_CYC") codeEvents[i] = PAPI_TOT_CYC;
