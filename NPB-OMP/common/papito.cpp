@@ -11,7 +11,7 @@
 
 using namespace std;
 
-#define NUM_CORES 4
+#define NUM_CORES 32
 
 int num_event_set[NUM_CORES]; // Cada thread registra o seu ID do EventSet, para sempre usar o mesmo
 vector<string> papiEvents;
@@ -38,6 +38,7 @@ std::string getcurpath()
 
 void papito_input()
 {
+  cout << getcurpath() << endl;
   ifstream infile(getcurpath() + "/common/counters.in");
   string line;
   while (getline(infile, line))

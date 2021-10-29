@@ -1,12 +1,12 @@
-/* CLASS = C */
+/* CLASS = A */
 					/*
 					  c  This file is generated automatically by the setparams utility.
 					  c  It sets the number of processors and the class_npb of the NPB
 					  c  in this directory. Do not modify it by hand.
 					 */
-#define	PROBLEM_SIZE	162
+#define	PROBLEM_SIZE	64
 #define	NITER_DEFAULT	200
-#define	DT_DEFAULT	0.0001
+#define	DT_DEFAULT	0.0008
 #define	CONVERTDOUBLE	FALSE
 #define COMPILETIME "28 Oct 2021"
 #define NPBVERSION "4.1"
