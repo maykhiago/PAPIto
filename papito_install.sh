@@ -34,8 +34,12 @@ echo ">>>>>>> Running example code"
 
 cd GAPBS
 sed -i "s+#define NUM_CORES 4+#define NUM_CORES $(grep -c ^processor /proc/cpuinfo)+g" papito.cpp
-
 cd ..
+
+cd Ligra
+sed -i "s+#define NUM_CORES 4+#define NUM_CORES $(grep -c ^processor /proc/cpuinfo)+g" papito.cpp
+cd ..
+
 cd NPB-OMP/common
 sed -i "s+#define NUM_CORES 4+#define NUM_CORES $(grep -c ^processor /proc/cpuinfo)+g" papito.cpp
 
@@ -80,4 +84,29 @@ cd ..
 echo ">>>>>>> Running bt.A"
 bin/bt.A
 
-cd ../PAPIto
+cd ..
+
+export OPENMP=true
+echo ">>>>>>> Cloning Ligra repository"
+git clone https://github.com/jshun/ligra.git
+
+echo ">>>>>>> Copying the modified files"
+cp PAPIto/Ligra/*.h ligra/ligra
+cp PAPIto/Ligra/*.cpp ligra/ligra
+cp PAPIto/Ligra/Makefile ligra/apps
+cp PAPIto/Ligra/counters.in ligra/ligra
+
+cd ligra/ligra
+
+echo ">>>>>>> Inserting the correct path to counters.in"
+sed -i "s+counters.in+$PWD/counters.in+g" papito.cpp
+
+cd ../apps 
+
+echo ">>>>>>> Compilling"
+make
+
+echo ">>>>>>> Running BellamFord Algorithm"
+./BellmanFord -f ../inputs/rMatGraph_WJ_5_100
+
+cd ../../PAPIto
