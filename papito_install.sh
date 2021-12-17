@@ -101,7 +101,7 @@ cd ligra/ligra
 echo ">>>>>>> Inserting the correct path to counters.in"
 sed -i "s+counters.in+$PWD/counters.in+g" papito.cpp
 
-cd ../apps 
+cd ../apps
 
 echo ">>>>>>> Compilling"
 make
@@ -109,4 +109,27 @@ make
 echo ">>>>>>> Running BellamFord Algorithm"
 ./BellmanFord -f ../inputs/rMatGraph_WJ_5_100
 
-cd ../../PAPIto
+cd ../..
+
+export OPENMP=true
+echo ">>>>>>> Cloning Polymer repository"
+git clone https://github.com/realstolz/polymer.git
+
+echo ">>>>>>> Copying the modified files"
+cp PAPIto/Polymer/*.h polymer
+cp PAPIto/Polymer/*.cpp polymer
+cp PAPIto/Polymer/Makefile polymer
+cp PAPIto/Polymer/counters.in polymer
+
+cd polymer
+
+echo ">>>>>>> Inserting the correct path to counters.in"
+sed -i "s+counters.in+$PWD/counters.in+g" papito.cpp
+
+echo ">>>>>>> Compilling"
+make
+
+echo ">>>>>>> Running BellamFord Algorithm"
+./numa-BellmanFord ../ligra/inputs/rMatGraph_WJ_5_100
+
+cd ../RAPLito
