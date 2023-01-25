@@ -32,8 +32,10 @@ Obs2: to check the available hardware in your machine, use the following command
 ***../papi/install/bin/papi_avail -a***
 
 Obs3: For serial execution, you must to set the following OpenMP variables:
-export OMP_NUM_THREADS=1	#Running with a single thread
-export GOMP_CPU_AFFINITY="0"	#Mapping the thread to core 0
+
+***export OMP_NUM_THREADS=1***	#Running with a single thread
+
+***export GOMP_CPU_AFFINITY="0"***	#Mapping the thread to core 0
 
 Then, your results will be the ones presented in thread index 0:
 
