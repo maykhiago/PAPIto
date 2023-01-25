@@ -36,16 +36,14 @@ export OMP_NUM_THREADS=1	#Running with a single thread
 export GOMP_CPU_AFFINITY="0"	#Mapping the thread to core 0
 
 Then, your results will be the ones presented in thread index 0:
+
 For example, using the simple_array_sum execution, you will get the following:
+
 Thread	TOT_CYC	L1_DCM	L2_DCM	
-***0	1093736	8186	17945***	
-
-1	917686	37	109	
-
-2	1045753	50	258	
-
-3	932284	62	180	
-
+***0	  1093736	8186	17945***	
+1	  917686	  37	  109	
+2	  1045753	  50	  258	
+3	  932284	  62	  180	
 Total:	3989459	8335	18492	
 
 128000	8191936000	512000
