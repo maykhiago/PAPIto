@@ -25,7 +25,7 @@ It is necessary to insert three simple commands in your code (see ***papito.h***
 
 ***papito_end()*** Finnish the measurement and print the final results.
 
-Also, the user must specify in ***counters.in*** the hardware counters are to be measured.
+Also, the user must specify in ***counters.in*** the hardware counters to be measured.
 
 Obs2: to check the available hardware in your machine, use the following command (from the PAPIto directory):
 
