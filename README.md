@@ -12,12 +12,12 @@ Just write the following command on the Linux terminal:
 
 The above commands install the necessary tools and run the example code ***simple_array_sum.cpp*** (to verify if everything is OK).
 
-Obs1: You will need superuser privileges, for example:
+Obs1: You will need root privileges, for example:
 ***sudo ./simple_array_sum***
 
 ## Using PAPIto in your code
 
-It is necessary to insert three simple commands in your code (see ***papito.h***):
+After including "***papito.h***" in your code (#include "papito.h"), it is necessary to insert three simple commands:
 
 ***papito_init()*** Initialize the PAPI lib;
 
